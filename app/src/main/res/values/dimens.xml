@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="goalLineHeight">20dp</dimen>
+    <dimen name="goalLineLeftSep">10dp</dimen>
+    <dimen name="goalLineTopSep">20dp</dimen>
+    <dimen name="goalTextSize">10sp</dimen>
+</resources>
