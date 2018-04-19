@@ -145,15 +145,15 @@ public class GoalLine extends View {
         yejiDrawable = getContext().getResources().getDrawable(R.drawable.completed);
 
         float drawableCaculateWidth = yejiDrawable.getMinimumWidth() * 26.0f / 34.0f;
-        yejiDrawable.setBounds(goalLineLeftSep + yejiDistance - (int) drawableCaculateWidth
+        yejiDrawable.setBounds(goalLineLeftSep + yejiDistance - (int) drawableCaculateWidth -radius
                 , goalLineTopSep / 2 + goallineHeight + topMargin
-                , goalLineLeftSep + yejiDistance + (int) (yejiDrawable.getMinimumWidth() - drawableCaculateWidth)
+                , goalLineLeftSep + yejiDistance + (int) (yejiDrawable.getMinimumWidth() - drawableCaculateWidth) - radius
                 , goalLineTopSep / 2 + goallineHeight + yejiDrawable.getMinimumHeight() + topMargin);
         yejiDrawable.draw(canvas);
 
-        orderDrawable.setBounds(goalLineLeftSep + orderDistance - (int) drawableCaculateWidth
+        orderDrawable.setBounds(goalLineLeftSep + orderDistance - (int) drawableCaculateWidth  -radius
                 , goalLineTopSep / 2 + goallineHeight + topMargin
-                , goalLineLeftSep + orderDistance + (int) (orderDrawable.getMinimumWidth() - drawableCaculateWidth)
+                , goalLineLeftSep + orderDistance + (int) (orderDrawable.getMinimumWidth() - drawableCaculateWidth) - radius
                 , goalLineTopSep / 2 + goallineHeight + orderDrawable.getMinimumHeight() + topMargin);
         orderDrawable.draw(canvas);
 
