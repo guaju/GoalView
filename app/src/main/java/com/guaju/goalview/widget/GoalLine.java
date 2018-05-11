@@ -45,19 +45,34 @@ public class GoalLine extends View {
     private String goalStr = "";
     private int width;
     private int height;
+    private int lineStartX,lineStartY;
+    private int lineStopX;
+    private int lineStopY;
 
 
     public GoalLine(Context context) {
         super(context);
         initMeasure();
         initPaint();
+        caculateSomeThing();
+    }
+
+    private void caculateSomeThing() {
+        lineStartX = goalLineLeftSep + leftMargin;
+        lineStartY =goalLineTopSep + topMargin;
+        lineStopX = screenWidth - goalLineLeftSep - leftMargin - rightMargin;
+        lineStopY = goalLineTopSep + topMargin;
+
+
     }
 
     private void initMeasure() {
         screenWidth = ScreenUtil.getScreenWidth(getContext());
         goalLineWidth = (int) (screenWidth * 0.8);
         goallineHeight = getContext().getResources().getDimensionPixelSize(R.dimen.goalLineHeight);
+
         goalLineLeftSep = getContext().getResources().getDimensionPixelSize(R.dimen.goalLineLeftSep);
+
         goalLineTopSep = getContext().getResources().getDimensionPixelSize(R.dimen.goalLineTopSep);
         textPaintSize = getContext().getResources().getDimensionPixelSize(R.dimen.goalTextSize);
         orangeLineWidth = goalLineLeftSep;
@@ -126,34 +141,36 @@ public class GoalLine extends View {
 //        Rect rect = new Rect(goalLineLeftSep, goalLineTopSep, goalLineWidth, goallineHeight);
         Log.e("GUAJU1", "ondraw: " + leftMargin + "--" + rightMargin);
         canvas.drawLine(goalLineLeftSep + leftMargin
-                , goalLineTopSep + topMargin
-                , screenWidth - goalLineLeftSep - leftMargin - rightMargin
+                ,   goalLineTopSep + topMargin
+                ,  screenWidth - goalLineLeftSep - leftMargin - rightMargin
                 , goalLineTopSep + topMargin,
                 greyLinePaint);
-        canvas.drawLine(goalLineLeftSep + getLeftPaddingOffset(),
+        //橙色线
+        canvas.drawLine(goalLineLeftSep + leftMargin ,
                 goalLineTopSep + topMargin,
-                orangeLineWidth,
+                goalLineLeftSep + leftMargin+orangeLineWidth,
                 goalLineTopSep + topMargin,
                 orangeLinePaint
         );
 
         //绘制业绩及预约圆点
         int radius = (int) (goallineHeight / 2.2);
-        canvas.drawCircle(goalLineLeftSep + yejiDistance - radius, (goalLineTopSep + goallineHeight) / 2 + topMargin, radius, circlePaint);
-        canvas.drawCircle(goalLineLeftSep + orderDistance - radius, (goalLineTopSep + goallineHeight) / 2 + topMargin, radius, circlePaint);
+        canvas.drawCircle(goalLineLeftSep + leftMargin + yejiDistance  , (goalLineTopSep + goallineHeight) / 2 + topMargin, radius, circlePaint);
+        canvas.drawCircle(goalLineLeftSep + leftMargin + orderDistance , (goalLineTopSep + goallineHeight) / 2 + topMargin, radius, circlePaint);
 
         yejiDrawable = getContext().getResources().getDrawable(R.drawable.completed);
 
         float drawableCaculateWidth = yejiDrawable.getMinimumWidth() * 26.0f / 34.0f;
-        yejiDrawable.setBounds(goalLineLeftSep + yejiDistance - (int) drawableCaculateWidth -radius
+        yejiDrawable.setBounds((int) (goalLineLeftSep + leftMargin + yejiDistance - drawableCaculateWidth)
                 , goalLineTopSep / 2 + goallineHeight + topMargin
-                , goalLineLeftSep + yejiDistance + (int) (yejiDrawable.getMinimumWidth() - drawableCaculateWidth) - radius
+                , (int) (goalLineLeftSep + leftMargin + yejiDistance + (yejiDrawable.getMinimumWidth()- drawableCaculateWidth))
                 , goalLineTopSep / 2 + goallineHeight + yejiDrawable.getMinimumHeight() + topMargin);
+        
         yejiDrawable.draw(canvas);
 
-        orderDrawable.setBounds(goalLineLeftSep + orderDistance - (int) drawableCaculateWidth  -radius
+        orderDrawable.setBounds(goalLineLeftSep + leftMargin + orderDistance - (int) drawableCaculateWidth
                 , goalLineTopSep / 2 + goallineHeight + topMargin
-                , goalLineLeftSep + orderDistance + (int) (orderDrawable.getMinimumWidth() - drawableCaculateWidth) - radius
+                , goalLineLeftSep + leftMargin + orderDistance + (int) (orderDrawable.getMinimumWidth() - drawableCaculateWidth)
                 , goalLineTopSep / 2 + goallineHeight + orderDrawable.getMinimumHeight() + topMargin);
         orderDrawable.draw(canvas);
 
